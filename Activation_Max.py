@@ -11,8 +11,9 @@ import os
 
 ## image saver function
 def imgsave(img_path,index_val,varray):
+#    pdb.set_trace()
     vfile_name = img_path + "layer" + str(index_val)
-    plt.imsave(vfile_name,varray)
+    plt.imsave(vfile_name,varray[i])
     return(print(vfile_name))
 
 ##img loaded function
@@ -36,41 +37,29 @@ img_save_folder ="/home/sanchit/PycharmProjects/Cambridge/Result/"
 img_path = "/home/sanchit/PycharmProjects/Cambridge/Image/"
 
 base_model = vgg16.VGG16(weights='imagenet')
-layer_dict = dict([layers.name, layers] for layers in base_model.layers)
-vimg = imgload(img_path)
-vkeys = list(layer_dict.keys())
+##layer_dict = dict([layers.name, layers] for layers in base_model.layers)
+##vkeys = list(layer_dict.keys())
 ## image loading-> convert to function:-
 
+vimg = imgload(img_path)
 
-for i in range(len(layer_dict)):
-    if i> 18:
-        break
-    print(i)
-    req_model = Model(inputs=base_model.input,
-                      outputs=base_model.get_layer(vkeys[i]).output)
-    vpred = req_model.predict(vimg)
-    vmn = np.mean(vpred, (0,3))
+# input placeholder
+inp = base_model.input
+# all layer outputs
+outputs = [layer.output for layer in base_model.layers]
+
+## to remove the flatten layers:-
+for i in [22,21,20,19]:
+    del outputs[i]
+
+functor = K.function([inp]+ [K.learning_phase()], outputs)
+layer_outs = functor([vimg, 1.])
+vmn = [np.mean(i, (0,3)) for i in layer_outs]
+for i in range(len(vmn)):
     imgsave(img_save_folder,i,vmn)
 
 
 
 
 
-from keras import backend as K
 
-inp = base_model.input                                           # input placeholder
-outputs = [layer.output for layer in base_model.layers]          # all layer outputs
-## to remove the flatten layers:-
-for i in [22,21,20,19]:
-    del outputs[i]
-
-functor = K.function([inp]+ [K.learning_phase()], outputs ) # evaluation function
-
-layer_outs = functor([vimg, 1.])
-
-vmn = [np.mean(i, (0,3)) for i in layer_outs]
-
-   
-
-    
-    
