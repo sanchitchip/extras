@@ -9,6 +9,7 @@ import keras.backend as K
 import pdb
 import os
 from keras.datasets import cifar10
+from VGGmodel import build_model
 
 
 def imgsave(img_path,index_val,varray):
@@ -29,14 +30,15 @@ img_save_folder ="/home/sanchit/PycharmProjects/Cambridge/Result/"
 img_path = "/home/sanchit/PycharmProjects/Cambridge/Image/cifar-10-batches-py/"
 
 
+base_model = build_model()
+base_model.load_weights("/home/sanchit/PycharmProjects/Cambridge/cifar10vgg.h5")
 
 ## Loading the data:
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 ## for cat
-vindex = np.where(y_train =3)
+vindex = np.where(y_train == 3)
 cat_data = x_train[vindex[0],:,:,:]
 
-base_model = vgg16.VGG16(weights='imagenet')
 inp = base_model.input
 # all layer outputs
 outputs = [layer.output for layer in base_model.layers]
