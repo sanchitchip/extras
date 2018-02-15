@@ -1,4 +1,5 @@
 #from keras.applications.resnet50 import ResNet50
+from __future__ import print_function
 from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
 from keras.models import Model
@@ -11,6 +12,7 @@ import os
 from keras.datasets import cifar10
 from VGGmodel import build_model
 
+## os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 def imgsave(img_path,index_val,varray):
 #    pdb.set_trace()
@@ -41,18 +43,24 @@ cat_data = x_train[vindex[0],:,:,:]
 
 inp = base_model.input
 # all layer outputs
-outputs = [layer.output for layer in base_model.layers]
+outputs = [base_model.get_layer("layer" + str(i)).output for i in range(1,14)]
 
 ## to remove the flatten layers:-
-for i in [22,21,20,19]:
-    del outputs[i]
-
+#for i in [22,21,20,19]:
+#    del outputs[i]
+#
 functor = K.function([inp]+ [K.learning_phase()], outputs)
 
-## to modify
-layer_outs = functor([cat_data, 1.])
 
-vmn = [np.mean(i, (0,3)) for i in layer_outs]
+
+## to modify
+vimg_out = []
+for i in range(1000,6000,1000):
+    layer_outs = functor([cat_data[i-1000:i,:,:,:], 1.])
+    vmn = [np.mean(i, (0,3)) for i in layer_outs]
+    vimg_out.append(vmn)
+#pdb.set_trace()    
+#vmn = [np.mean(i, (0,3)) for i in layer_outs]
 for i in range(len(vmn)):
     imgsave(img_save_folder,i,vmn)
 

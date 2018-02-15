@@ -13,73 +13,73 @@ def build_model():
     weight_decay = 0.0005
     
     model.add(Conv2D(64, (3, 3), padding='same',
-                     input_shape=[32,32,3],kernel_regularizer=regularizers.l2(weight_decay)))
+                     input_shape=[32,32,3],kernel_regularizer=regularizers.l2(weight_decay),name = 'layer1'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.3))
 
-    model.add(Conv2D(64, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(64, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer2'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(Conv2D(128, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(128, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer3'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.4))
 
-    model.add(Conv2D(128, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(128, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer4'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(Conv2D(256, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(256, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer5'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.4))
 
-    model.add(Conv2D(256, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(256, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer6'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.4))
 
-    model.add(Conv2D(256, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
-    model.add(Activation('relu'))
-    model.add(BatchNormalization())
-
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-
-
-    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
-    model.add(Activation('relu'))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.4))
-
-    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
-    model.add(Activation('relu'))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.4))
-
-    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(256, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer7'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
 
-    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer8'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.4))
 
-    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer9'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(Dropout(0.4))
 
-    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay)))
+    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer10'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+
+    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer11'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.4))
+
+    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer12'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.4))
+
+    model.add(Conv2D(512, (3, 3), padding='same',kernel_regularizer=regularizers.l2(weight_decay),name = 'layer13'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
