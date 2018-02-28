@@ -8,8 +8,10 @@ from keras.applications import vgg16
 import keras.backend as K
 import pdb
 import os
-
+from keras.datasets import cifar10
+from VGGmodel import build_model,load_weight
 ## image saver function
+
 def imgsave(img_path,index_val,varray):
 #    pdb.set_trace()
     vfile_name = img_path + "layer" + str(index_val)
@@ -31,15 +33,22 @@ def imgload(img_path):
     vimage = np.reshape(vimage, (len(vlist),224,224,3))    
     return vimage
 
+#unpickle
+def unpickle(file):
+    import pickle
+    with open(file, 'rb') as fo:
+        dict = pickle.load(fo, encoding='bytes')
+    return dict
+
 # base VGG model:-
 ## images save folder:
 img_save_folder ="/home/sanchit/PycharmProjects/Cambridge/Result/"
-img_path = "/home/sanchit/PycharmProjects/Cambridge/Image/"
+img_path = "/home/sanchit/PycharmProjects/Cambridge/Image/cifar-10-batches-py/"
 
-base_model = vgg16.VGG16(weights='imagenet')
-##layer_dict = dict([layers.name, layers] for layers in base_model.layers)
-##vkeys = list(layer_dict.keys())
-## image loading-> convert to function:-
+#base_model = vgg16.VGG16(weights='imagenet')
+#loading VGG trained on cifar
+base_model = build_model()
+base_model.load_weights("/home/sanchit/PycharmProjects/Cambridge/cifar10vgg.h5")
 
 vimg = imgload(img_path)
 
@@ -57,9 +66,4 @@ layer_outs = functor([vimg, 1.])
 vmn = [np.mean(i, (0,3)) for i in layer_outs]
 for i in range(len(vmn)):
     imgsave(img_save_folder,i,vmn)
-
-
-
-
-
-
+    
