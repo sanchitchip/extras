@@ -16,7 +16,7 @@ from VGGmodel import build_model
 
 def imgsave(img_path,index_val,varray,class_name):
 #    pdb.set_trace()
-    vfile_name = img_path + class_name + "layer" + str(index_val)
+    vfile_name = img_path + class_name + "_layer_" + str(index_val)
     plt.imsave(vfile_name,varray[i])
     return(print(vfile_name))
 
