@@ -27,6 +27,15 @@ base_model = InceptionV3(include_top=True, weights='imagenet', input_tensor=None
 
 
 
+def preprocess_input(x):
+#    pdb.set_trace()
+    x = x/255
+    x = x - 0.5
+    x = x*2
+    return x
+
+
+
 inp = base_model.input
 ## all layer outputs
 outputs = [base_model.get_layer("mixed"+ str(i)).output for i in range(11)]
