@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.init as init
 import torch.nn.functional as F
 from torch.autograd import Variable
-
+from l0net import L0Conv2d,L0Linear
 import sys
 import numpy as np
 
